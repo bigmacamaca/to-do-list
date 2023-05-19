@@ -1,0 +1,99 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentTask.id">
+      <div>
+        <label><strong>Title:</strong></label> {{ currentTask.title }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentTask.description }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentTask.isCompleted ? "Completed" : "Pending" }}
+      </div>
+      <div>
+        <label><strong>Date Assigned:</strong></label>
+        {{ currentTask.published }}
+      </div>
+  
+      <a
+        class="py-1 my-5 px-3 text-base text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-blue-300"
+        routerLink="/tasks/{{ currentTask.id }}"
+      >
+        Edit
+      </a>
+    </div>
+  
+    <div *ngIf="!currentTask">
+      <br />
+      <p>Select a task!</p>
+    </div>
+  </div>
+  
+  <ng-template #editable>
+    <p class="font-bold text-2xl flex justify-center">Edit Task</p>
+    <div *ngIf="currentTask.id" class="edit-form mt-8 max-w-md rounded-md p-4 border-4 mx-auto">
+      <form>
+        <div class="form-group grid grid-cols-1 gap-1">
+          <p class="font-bold text-lg">Title</p>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentTask.title"
+            name="title"
+          />
+        </div>
+        <div class="form-group grid grid-cols-1 gap-1 mx-auto">
+          <p class="font-bold text-lg">Description</p>
+          <textarea
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentTask.description"
+            name="description"
+          ></textarea>
+        </div>
+  
+        <div class="form-group grid grid-cols-1 gap-1 my-2 mx-auto">
+          <p class="font-bold text-lg">Status</p>
+          {{ currentTask.isCompleted ? "Completed" : "Pending" }}
+        </div>
+      </form>
+  
+      <button
+        class="rounded-md py-1 px-2 mx-1 text-base text-center text-white bg-orange-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-orange-300"
+        *ngIf="currentTask.isCompleted"
+        (click)="updateIsCompleted(false)"
+      >
+        Pending
+      </button>
+      <button
+        *ngIf="!currentTask.isCompleted"
+        class="rounded-md py-1 px-2 mx-1 text-base text-center text-white bg-green-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-green-300"
+        (click)="updateIsCompleted(true)"
+      >
+        Completed
+      </button>
+  
+      <button class="rounded-md py-1 px-2 mx-1 text-base text-center text-white bg-red-700 sm:w-fit hover:bg-red-800 focus:right-4 focus:outline-none focus:ring-red-300" (click)="deleteTask()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="rounded-md py-1 px-2 mx-1 text-base text-center text-white bg-blue-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-blue-300"
+        (click)="updateTask()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentTask.id">
+      <br />
+      <p>Cannot access this Task!</p>
+    </div>
+  </ng-template>
+
+<!-- <p>task-details works!</p> -->

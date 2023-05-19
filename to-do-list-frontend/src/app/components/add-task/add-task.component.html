@@ -1,0 +1,40 @@
+<div>
+  <p class="font-bold text-2xl flex justify-center">Add Task</p>
+    <div class="mt-8 max-w-md rounded-md p-4 border-4 mx-auto">
+      <div *ngIf="!submitted">
+        <div class="grid grid-cols-1 gap-1">
+          <label for="title" class="text-lg font-medium">Title</label>
+          <input
+            type="text"
+            class="mt-1 block w-full"
+            id="title"
+            required
+            [(ngModel)]="task.title"
+            name="title"
+          />
+        </div>
+  
+        <div class="grid grid-cols-1 gap-1">
+          <label for="description" class="text-lg font-medium">Description</label>
+          <textarea
+            type="text"
+            class="mt-1 block w-full my-3"
+            id="description"
+            required
+            [(ngModel)]="task.description"
+            name="description"
+          ></textarea>
+        </div>
+  
+        <button (click)="saveTask()" class="py-2 px-3 text-base text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-blue-300">Submit</button>
+      </div>
+  
+      <div *ngIf="submitted">
+        <p class="font-bold text-lg">Task was submitted successfully!</p>
+        <button class="py-2 px-3 text-base text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:right-4 focus:outline-none focus:ring-blue-300" (click)="newTask()">Add</button>
+      </div>
+    </div>
+</div>
+
+
+<!-- <p>add-task works!</p> -->
